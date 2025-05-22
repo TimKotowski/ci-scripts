@@ -27,3 +27,5 @@ runs:
         token: ${{ inputs.token }}
         setup_only: true
     - run: buf lint ${{ inputs.path }}
+      shell: bash
+
