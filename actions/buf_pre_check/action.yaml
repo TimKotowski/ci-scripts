@@ -6,6 +6,9 @@ inputs:
   path:
     description: "Root path for buf to run cli commands"
     required: true
+  token:
+    description: "Token to provision using Buf"
+    required: true
 
 runs:
   using: "composite"
@@ -18,10 +21,10 @@ runs:
       shell: bash
 
     - name: Buf Lint & Format
-      id: Buf Pre Check
+      id: Buf-Pre-Check
       uses: bufbuild/buf-action@v1
       with:
-        token: ${{ secrets.BSR_TOKEN }}
+        token: ${{ inputs.token }}
       run: |
         buf format -w ${{ inputs.path }} --error-format github-actions
         buf lint ${{ inputs.path }} --error-format github-actions
