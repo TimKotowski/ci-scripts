@@ -26,4 +26,4 @@ runs:
       with:
         token: ${{ inputs.token }}
         setup_only: true
-      run: buf lint ${{ inputs.path }}
+    - run: buf lint ${{ inputs.path }}
