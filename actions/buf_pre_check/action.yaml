@@ -25,6 +25,5 @@ runs:
       uses: bufbuild/buf-action@v1
       with:
         token: ${{ inputs.token }}
-      run: |
-        buf format -w ${{ inputs.path }} --error-format github-actions
-        buf lint ${{ inputs.path }} --error-format github-actions
+        setup_only: true
+      run: buf lint ${{ inputs.path }}
