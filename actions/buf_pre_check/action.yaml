@@ -1,0 +1,27 @@
+name: "Buf Pre-Check"
+description: "Check for proto files that may be missing certain protobuf idiomatic practices"
+author: "Tim Kotowski"
+
+inputs:
+  path:
+    description: "Root path for buf to run cli commands"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Ensure Path
+      if: ${{inputs.path == ''}}
+      run: |
+        echo "Root path not set for buf to running commands" 
+        exit 1
+      shell: bash
+
+    - name: Buf Lint & Format
+      id: Buf Pre Check
+      uses: bufbuild/buf-action@v1
+      with:
+        token: ${{ secrets.BSR_TOKEN }}
+      run: |
+        buf format -w ${{ inputs.path }} --error-format github-actions
+        buf lint ${{ inputs.path }} --error-format github-actions

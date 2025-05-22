@@ -1,3 +1,3 @@
 # masochist-scripts
 
-All things scripts
+centralized repository for storing github actions, workflows and scripts
