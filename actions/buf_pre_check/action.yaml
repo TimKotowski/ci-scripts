@@ -14,7 +14,7 @@ runs:
   using: "composite"
   steps:
     - name: Ensure Path
-      if: ${{inputs.path == ''}}
+      if: ${{ inputs.path == '' }}
       run: |
         echo "Root path not set for buf to running commands" 
         exit 1
@@ -26,6 +26,7 @@ runs:
       with:
         token: ${{ inputs.token }}
         setup_only: true
-    - run: buf lint ${{ inputs.path }}
-      shell: bash
 
+    - name: Run Buf Lint
+      run: buf lint ${{ inputs.path }}
+      shell: bash
