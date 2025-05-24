@@ -9,6 +9,9 @@ inputs:
   path:
     description: "Root path for buf to run cli commands"
     required: true
+  gh_token:
+    description: "GH Token"
+    required: true
 
 runs:
   using: composite
@@ -27,7 +30,10 @@ runs:
 
     - name: Trigger Repository Dispatch
       id: trigger_repo_dispatch
+      env:
+        TOKEN: ${{ inputs.token }}
+        OWNER: "TimKotowski"
+        EVENT_TYPE: EVENT_SCHEMA_REGISTRY_PULL_NEW_CHANGES
       run: |
         chmod +x ../../scripts/github/repository_dispatch.sh
       shell: bash
-
