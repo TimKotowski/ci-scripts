@@ -14,25 +14,27 @@ if [ -z "$OWNER" ]; then
   exit 1
 fi
 
-if [ -z "$REPO" ]; then
-  echo "Empty Token"
-  exit 1
-fi
+# Store this else where eventually
+declare -a REPOS=("schema-registry-go")
 
 PAYLOAD="$(jq -n --arg event_type "$EVENT_TYPE" '{"event_type": $event_type}')"
 
+for repo in "${REPOS[@]}"
+do
 RESPONSE=$(
 curl -s -L \
   -X POST \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $TOKEN" \
   -w "%{http_code}" \
-  https://api.github.com/repos/"$OWNER"/"$REPO"/dispatches \
+  https://api.github.com/repos/"$OWNER"/"$repo"/dispatches \
   -d "$PAYLOAD"
 )
 
 if [ "$RESPONSE" != "204" ]; then
-  echo "Error occurred when creating event, status code: $RESPONSE"
+  echo "Error occurred when creating event for repo $repo, status code: $RESPONSE"
+  exit 1
 else
   echo "Event dispatch sent"
 fi
+done
