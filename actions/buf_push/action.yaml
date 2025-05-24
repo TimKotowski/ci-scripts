@@ -1,0 +1,33 @@
+name: Buf Push
+description: Push new schema changes to BSR
+author: Tim Kotowski
+
+inputs:
+  token:
+    description: "Buf Schema Registry Token"
+    required: true
+  path:
+    description: "Root path for buf to run cli commands"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Buf Checkkout
+      id: buf-checkout
+      uses: bufbuild/buf-action@v1
+      with:
+        token: ${{ inputs.token }}
+        setup_only: true
+
+    - name: Buf Push
+      id: buf_push
+      run: buf push ${{ inputs.path }}
+      shell: bash
+
+    - name: Trigger Repository Dispatch
+      id: trigger_repo_dispatch
+      run: |
+        chmod +x ../../scripts/github/repository_dispatch.sh
+      shell: bash
+
