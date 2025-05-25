@@ -34,6 +34,5 @@ runs:
         TOKEN: ${{ inputs.gh_token }}
         OWNER: "TimKotowski"
         EVENT_TYPE: EVENT_SCHEMA_REGISTRY_PULL_NEW_CHANGES
-      run: |
-        chmod +x ./script.sh
+      run: ${{github.action_path}}/script.sh
       shell: bash
