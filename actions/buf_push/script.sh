@@ -14,10 +14,15 @@ if [ -z "$OWNER" ]; then
   exit 1
 fi
 
+if [ -z "$ID" ]; then
+  echo "Empty ID"
+  exit 1
+fi
+
 # Store this else where eventually
 declare -a REPOS=("schema-registry-go")
 
-PAYLOAD="$(jq -n --arg event_type "$EVENT_TYPE" '{"event_type": $event_type}')"
+PAYLOAD="$(jq -n --arg event_type "$EVENT_TYPE" id "$ID" '{"event_type": $event_type, "client_payload": {"id": $id} }')"
 
 for repo in "${REPOS[@]}"
 do
