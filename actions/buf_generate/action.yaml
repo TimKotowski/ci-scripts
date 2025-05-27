@@ -1,0 +1,26 @@
+name: Buf Generate
+description: Generate new schema changes from BSR
+author: Tim Kotowski
+
+inputs:
+  token:
+    description: "Buf Schema Registry Token"
+    required: true
+  path:
+    description: "Root path for buf to run cli commands"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Buf Checkout
+      id: buf-checkout
+      uses: bufbuild/buf-action@v1
+      with:
+        token: ${{ inputs.token }}
+        setup_only: true
+
+    - name: Buf Generate
+      id: buf_generate
+      run: buf generate ${{inputs.path}}
+      shell: bash
