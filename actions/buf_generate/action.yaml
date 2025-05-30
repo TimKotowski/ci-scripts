@@ -21,7 +21,7 @@ runs:
         setup_only: true
 
     - name: Buf Login
-      run: buf registry login --username ${{ secrets.BUF_USER }} --token ${{ secrets.BUF_TOKEN }}
+      run: buf registry login --username ${{ inputs.user }} --token ${{ inputs.token }}
       shell: bash
 
     - name: Buf Generate
