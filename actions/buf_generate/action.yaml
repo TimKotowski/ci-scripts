@@ -17,13 +17,6 @@ runs:
         token: ${{ inputs.token }}
         setup_only: true
 
-<<<<<<< Updated upstream
-    - name: Buf Login
-      run: echo BUF_TOKEN=${{ inputs.token }} | buf registry login --token-stdin
-      shell: bash
-
-=======
->>>>>>> Stashed changes
     - name: Buf Generate
       id: buf_generate
       run: buf generate
