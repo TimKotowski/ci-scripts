@@ -2,11 +2,6 @@ name: Buf Generate
 description: Generate new schema changes from BSR
 author: Tim Kotowski
 
-inputs:
-  token:
-    description: "Buf Schema Registry Token"
-    required: true
-
 runs:
   using: composite
   steps:
@@ -16,6 +11,10 @@ runs:
       with:
         token: ${{ inputs.token }}
         setup_only: true
+
+    - name: Buf Login
+      run: buf registry login --username ${{ secrets.BUF_USER }} --token ${{ secrets.BUF_TOKEN }}
+      shell: bash
 
     - name: Buf Generate
       id: buf_generate
