@@ -6,9 +6,6 @@ inputs:
   token:
     description: "Buf Schema Registry Token"
     required: true
-  path:
-    description: "Root path for buf to run cli commands"
-    required: true
 
 runs:
   using: composite
@@ -22,5 +19,5 @@ runs:
 
     - name: Buf Generate
       id: buf_generate
-      run: buf generate ${{inputs.path}}
+      run: buf generate
       shell: bash
