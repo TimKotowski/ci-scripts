@@ -22,7 +22,7 @@ fi
 # Store this else where eventually
 declare -a REPOS=("schema-registry-go")
 
-PAYLOAD="$(jq -n --arg event_type "$EVENT_TYPE" id "$ID" '{"event_type": $event_type, "client_payload": {"id": $id} }')"
+PAYLOAD="$(jq -n --arg event_type "$EVENT_TYPE" --arg id "$ID" '{"event_type": $event_type, "client_payload": {"id": $id } }')"
 
 for repo in "${REPOS[@]}"
 do
