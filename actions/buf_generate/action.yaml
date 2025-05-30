@@ -3,9 +3,6 @@ description: Generate new schema changes from BSR
 author: Tim Kotowski
 
 inputs:
-  user:
-    required: true
-    description: "Owner of Buf Schema Registry"
   token:
     required: true
     description: "Token for accessing Buf Schema API"
@@ -21,7 +18,7 @@ runs:
         setup_only: true
 
     - name: Buf Login
-      run: buf registry login --username ${{ inputs.user }} --token ${{ inputs.token }}
+      run: echo BUF_TOKEN=${{ inputs.token }} | buf registry login --token-stdin
       shell: bash
 
     - name: Buf Generate
